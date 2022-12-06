@@ -1,5 +1,6 @@
 package Calculator_GUI;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -29,11 +30,11 @@ public class Calculator implements ActionListener {
 	/**
 	 * User inputs stored in variables 'a' and 'b'
 	 */
-	private static int a = 0, b = 0;
+	private static double a = 0, b = 0;
 	/**
 	 *  and Result is stored in variable 'result'	
 	 */
-	private static int result = 0;
+	private static double result = 0;
 	/**
 	 *  Variable to store operations (+, -, *,/)
 	 */
@@ -45,8 +46,15 @@ public class Calculator implements ActionListener {
 		 */
 	public Calculator() {
 			
+		// create the frame of the calculator
 		f = new JFrame("Calculator");
+		
+		// create the text field of the calculator
 		t = new JTextField();
+		// set text field to non - editable 
+		t.setEditable(false);
+		
+		// create the buttons 
 		b1 = new JButton("1");
 		b2 = new JButton("2");
 		b3 = new JButton("3");
@@ -57,15 +65,24 @@ public class Calculator implements ActionListener {
 		b8 = new JButton("8");
 		b9 = new JButton("9");
 		b0 = new JButton("0");
+		
+		//create . button
 		bdec = new JButton(".");
+		
+		// create operator buttons
 		badd = new JButton("+");
 		bsub =new JButton("-");
 		bmul = new JButton("*");
 		bdiv = new JButton("/");
+		
+		//create equals button
 		beq = new JButton("=");
+		
+		// create equals button
 		bclr = new JButton("Clear");
 		
 		
+		// setting the size and placement of the buttons
 		t.setBounds(30, 40, 280, 30);
 		b1.setBounds(40, 100, 50, 40);
 		b2.setBounds(110, 100, 50, 40);
@@ -179,37 +196,37 @@ public void actionPerformed(ActionEvent e) {
 		}
 
 		if(e.getSource()==badd) {
-			//a = Double.parseDouble(t.getText());	//converting string input to number(double)
-			a = Integer.parseInt(t.getText());
+			a = Double.parseDouble(t.getText());	//converting string input to number(double)
+			//a = Integer.parseInt(t.getText());
 			operator = 1;
 			t.setText("");
 		}
 		
 		if(e.getSource()==bsub) {
-			//a= Double.parseDouble(t.getText());
-			a = Integer.parseInt(t.getText());
+			a= Double.parseDouble(t.getText());
+			//a = Integer.parseInt(t.getText());
 			operator = 2;
 			t.setText("");
 		}
 		
 		if(e.getSource()==bmul) {
-			//a= Double.parseDouble(t.getText());
-			a = Integer.parseInt(t.getText());
+			a= Double.parseDouble(t.getText());
+			//a = Integer.parseInt(t.getText());
 			operator = 3;
 			t.setText("");
 		}
 		
 		
 		if(e.getSource()==bdiv) {
-			//	a = Double.parseDouble(t.getText());
-				a = Integer.parseInt(t.getText());
+				a = Double.parseDouble(t.getText());
+			//	a = Integer.parseInt(t.getText());
 				operator = 4;
 				t.setText("");
 			}
 		
 		if(e.getSource()==beq) {
-			//b = Double.parseDouble(t.getText());
-			b = Integer.parseInt(t.getText());
+			b = Double.parseDouble(t.getText());
+			//b = Integer.parseInt(t.getText());
 			switch(operator) {
 			
 			case 1:
@@ -231,19 +248,26 @@ public void actionPerformed(ActionEvent e) {
 			default :
 				result = 0;
 			}
-			t.setText("" +result);
-		 }
-		
+			
+			if(Double.isInfinite(result)) {
+				t.setText("Cannot divide by Zero");
+							}else {
+									t.setText("" +result);
+								  }
+			
+//			if(e.getSource()==b1||e.getSource()==b2||e.getSource()==b3||e.getSource()==b4||e.getSource()==b5||e.getSource()==b6||e.getSource()==b7||e.getSource()==b8||e.getSource()==b9||e.getSource()==b0) {
+//				t.setText("");
+//			}
+			
+		}
 		
 		if(e.getSource()==bclr) {
 			t.setText("");
 		}
+		
 	}catch(NumberFormatException e2) {
-		t.setText("Accepts only integers");
-	}catch (ArithmeticException e1) {
-		//exception handler
-		t.setText("Can't divide by zero");
-	}
+			t.setText("Please clear and enter valid numbers");
+		}
 	
 	
   }	
